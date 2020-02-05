@@ -250,8 +250,6 @@ public class Main extends Application
 
 
 
-
-
     private Sphere createSun()
     {
         Sphere sun = new Sphere(1000);
@@ -270,7 +268,6 @@ public class Main extends Application
 
         return mercury;
     }
-
 
     private Sphere createVenus()
     {
@@ -351,7 +348,6 @@ public class Main extends Application
 
         return neptune;
     }
-
 
     private void initMouseControl(StackPane root, Scene scene, Stage stage)
     {
