@@ -19,6 +19,8 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 public class Main extends Application
 {
 
@@ -41,10 +43,10 @@ public class Main extends Application
 
 
 
-        Sphere sun = new Sphere(1000);
-        PhongMaterial sunMaterial = new PhongMaterial();
-        sunMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/sun.jpg")));
-        sun.setMaterial(sunMaterial);
+
+
+
+        Sphere sun = createSun();
 
         PointLight sunLight = new PointLight();
         sunLight.translateXProperty().add(sun.getTranslateX());
@@ -58,209 +60,74 @@ public class Main extends Application
 
 
         //********** mercury ************
-        Sphere mercury = new Sphere(25);
-        PhongMaterial mercuryMaterial = new PhongMaterial();
-        mercuryMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/mercury.jpg")));
+        Sphere mercury = createMercury();
         Circle mercuryPath = new Circle();
         mercuryPath.setRadius(sun.getBoundsInLocal().getWidth() + 100);
-
         PathTransition transitionMercury = new PathTransition();
-        transitionMercury.setPath(mercuryPath);
-        transitionMercury.setNode(mercury);
-        transitionMercury.setInterpolator(Interpolator.LINEAR);
-        transitionMercury.setDuration(Duration.seconds(5));
-        transitionMercury.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionMercury.setCycleCount(PathTransition.INDEFINITE);
-        transitionMercury.play();
-        mercuryPath.setVisible(false);
-
-
-
-
+        setTransitionPath(transitionMercury, mercury, mercuryPath, 5);
 
 
         //********** venus ************
-        Sphere venus = new Sphere(35);
-        PhongMaterial venusMaterial = new PhongMaterial();
-        venusMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/venus.jpg")));
-        venus.setMaterial(venusMaterial);
-
+        Sphere venus = createVenus();
         Circle venusPath = new Circle();
         venusPath.setRadius(sun.getBoundsInLocal().getWidth() + 800);
-
         PathTransition transitionVenus = new PathTransition();
-        transitionVenus.setPath(venusPath);
-        transitionVenus.setNode(venus);
-        transitionVenus.setInterpolator(Interpolator.LINEAR);
-        transitionVenus.setDuration(Duration.seconds(6));
-        transitionVenus.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionVenus.setCycleCount(PathTransition.INDEFINITE);
-        transitionVenus.play();
-        venusPath.setVisible(false);
+        setTransitionPath(transitionVenus, venus, venusPath, 6);
 
 
-
-
-        //********** earth ************
-        Sphere earth = new Sphere(50);
-        PhongMaterial earthMaterial = new PhongMaterial();
-        earthMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/earth.jpg")));
-        earth.setMaterial(earthMaterial);
-
-
-        Sphere moon = new Sphere(10);
-        PhongMaterial moonMaterial = new PhongMaterial();
-        moonMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/moon.jpg")));
-        moon.setMaterial(moonMaterial);
-
+        //********** earth and moon ************
+        Sphere earth = createEarth();
         Circle earthPath = new Circle();
         earthPath.setRadius(sun.getBoundsInLocal().getWidth() + 3000);
-
-
         PathTransition transitionEarth = new PathTransition();
-        transitionEarth.setPath(earthPath);
-        transitionEarth.setNode(earth);
-        transitionEarth.setInterpolator(Interpolator.LINEAR);
-        transitionEarth.setDuration(Duration.seconds(9));
-        transitionEarth.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionEarth.setCycleCount(PathTransition.INDEFINITE);
-        transitionEarth.play();
+        setTransitionPath(transitionEarth, earth, earthPath, 9);
 
 
-
+        Sphere moon = createMoon();
         Circle moonPath = new Circle();
         moonPath.setRadius(earth.getBoundsInLocal().getWidth() + 60);
-
         PathTransition transitionMoon = new PathTransition();
-        transitionMoon.setPath(moonPath);
-        transitionMoon.setNode(moon);
-        transitionMoon.setInterpolator(Interpolator.LINEAR);
-        transitionMoon.setDuration(Duration.seconds(2));
-        transitionMoon.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionMoon.setCycleCount(PathTransition.INDEFINITE);
-        transitionMoon.play();
-
-        moonPath.setVisible(false);
-        earthPath.setVisible(false);
-
-
-
+        setTransitionPath(transitionMoon, moon, moonPath, 2);
 
 
         //********** mars ************
-        Sphere mars = new Sphere(45);
-        PhongMaterial marsMaterial = new PhongMaterial();
-        marsMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/mars.jpg")));
-        mars.setMaterial(marsMaterial);
-
+        Sphere mars = createMars();
         Circle marsPath = new Circle();
         marsPath.setRadius(sun.getBoundsInLocal().getWidth() + 5000);
-
         PathTransition transitionMars = new PathTransition();
-        transitionMars.setPath(marsPath);
-        transitionMars.setNode(mars);
-        transitionMars.setInterpolator(Interpolator.LINEAR);
-        transitionMars.setDuration(Duration.seconds(11));
-        transitionMars.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionMars.setCycleCount(PathTransition.INDEFINITE);
-        transitionMars.play();
-        marsPath.setVisible(false);
-
-
+        setTransitionPath(transitionMars, mars, marsPath, 11);
 
 
         //********** jupiter ************
-        Sphere jupiter = new Sphere(200);
-        PhongMaterial jupiterMaterial = new PhongMaterial();
-        jupiterMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/jupiter.jpg")));
-        jupiter.setMaterial(jupiterMaterial);
-
-
+        Sphere jupiter = createJupiter();
         Circle jupiterPath = new Circle();
         jupiterPath.setRadius(sun.getBoundsInLocal().getWidth() + 8000);
-
         PathTransition transitionJupiter = new PathTransition();
-        transitionJupiter.setPath(jupiterPath);
-        transitionJupiter.setNode(jupiter);
-        transitionJupiter.setInterpolator(Interpolator.LINEAR);
-        transitionJupiter.setDuration(Duration.seconds(12));
-        transitionJupiter.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionJupiter.setCycleCount(PathTransition.INDEFINITE);
-        transitionJupiter.play();
-        jupiterPath.setVisible(false);
-
-
-
-
+        setTransitionPath(transitionJupiter, jupiter, jupiterPath, 12);
 
 
         //********** saturn ************
-        Sphere saturn = new Sphere(150);
-        PhongMaterial saturnMaterial = new PhongMaterial();
-        saturnMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/saturn.png")));
-        saturn.setMaterial(saturnMaterial);
-
-
+        Sphere saturn = createSaturn();
         Circle saturnPath = new Circle();
         saturnPath.setRadius(sun.getBoundsInLocal().getWidth() + 12000);
-
         PathTransition transitionSaturn = new PathTransition();
-        transitionSaturn.setPath(saturnPath);
-        transitionSaturn.setNode(saturn);
-        transitionSaturn.setInterpolator(Interpolator.LINEAR);
-        transitionSaturn.setDuration(Duration.seconds(16));
-        transitionSaturn.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionSaturn.setCycleCount(PathTransition.INDEFINITE);
-        transitionSaturn.play();
-        saturnPath.setVisible(false);
-
-
-
+        setTransitionPath(transitionSaturn, saturn, saturnPath, 16);
 
 
         //********** uranus ************
-        Sphere uranus = new Sphere(100);
-        PhongMaterial uranusMaterial = new PhongMaterial();
-        uranusMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/uranus.jpg")));
-        uranus.setMaterial(uranusMaterial);
-
-
+        Sphere uranus = createUranus();
         Circle uranusPath = new Circle();
         uranusPath.setRadius(sun.getBoundsInLocal().getWidth() + 16000);
-
         PathTransition transitionUranus = new PathTransition();
-        transitionUranus.setPath(uranusPath);
-        transitionUranus.setNode(uranus);
-        transitionUranus.setInterpolator(Interpolator.LINEAR);
-        transitionUranus.setDuration(Duration.seconds(19));
-        transitionUranus.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionUranus.setCycleCount(PathTransition.INDEFINITE);
-        transitionUranus.play();
-        uranusPath.setVisible(false);
-
-
+        setTransitionPath(transitionUranus, uranus, uranusPath, 19);
 
 
         //********** neptune ************
-        Sphere neptune = new Sphere(100);
-        PhongMaterial neptuneMaterial = new PhongMaterial();
-        neptuneMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/neptune.jpg")));
-        neptune.setMaterial(neptuneMaterial);
-
+        Sphere neptune = createNeptune();
         Circle neptunePath = new Circle();
         neptunePath.setRadius(sun.getBoundsInLocal().getWidth() + 18000);
-
         PathTransition transitionNeptune = new PathTransition();
-        transitionNeptune.setPath(neptunePath);
-        transitionNeptune.setNode(neptune);
-        transitionNeptune.setInterpolator(Interpolator.LINEAR);
-        transitionNeptune.setDuration(Duration.seconds(22));
-        transitionNeptune.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        transitionNeptune.setCycleCount(PathTransition.INDEFINITE);
-        transitionNeptune.play();
-        neptunePath.setVisible(false);
-
-
+        setTransitionPath(transitionNeptune, neptune, neptunePath, 22);
 
 
 
@@ -364,23 +231,140 @@ public class Main extends Application
     }
 
 
+
+
+
+
+    private void setTransitionPath(PathTransition transitionPlanet, Sphere planet, Circle planetPath, int seconds)
+    {
+        transitionPlanet.setPath(planetPath);
+        transitionPlanet.setNode(planet);
+        transitionPlanet.setInterpolator(Interpolator.LINEAR);
+        transitionPlanet.setDuration(Duration.seconds(seconds));
+        transitionPlanet.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        transitionPlanet.setCycleCount(PathTransition.INDEFINITE);
+        planetPath.setVisible(false);
+        transitionPlanet.play();
+
+    }
+
+
+
+
+
+    private Sphere createSun()
+    {
+        Sphere sun = new Sphere(1000);
+        PhongMaterial sunMaterial = new PhongMaterial();
+        sunMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/sun.jpg")));
+        sun.setMaterial(sunMaterial);
+
+        return sun;
+    }
+
+    private Sphere createMercury()
+    {
+        Sphere mercury = new Sphere(25);
+        PhongMaterial mercuryMaterial = new PhongMaterial();
+        mercuryMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/mercury.jpg")));
+
+        return mercury;
+    }
+
+
+    private Sphere createVenus()
+    {
+        Sphere venus = new Sphere(35);
+        PhongMaterial venusMaterial = new PhongMaterial();
+        venusMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/venus.jpg")));
+        venus.setMaterial(venusMaterial);
+
+        return venus;
+    }
+
+    private Sphere createEarth()
+    {
+        Sphere earth = new Sphere(50);
+        PhongMaterial earthMaterial = new PhongMaterial();
+        earthMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/earth.jpg")));
+        earth.setMaterial(earthMaterial);
+
+        return earth;
+    }
+
+    private Sphere createMoon()
+    {
+        Sphere moon = new Sphere(10);
+        PhongMaterial moonMaterial = new PhongMaterial();
+        moonMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/moon.jpg")));
+        moon.setMaterial(moonMaterial);
+
+        return moon;
+    }
+
+    private Sphere createMars()
+    {
+        Sphere mars = new Sphere(45);
+        PhongMaterial marsMaterial = new PhongMaterial();
+        marsMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/mars.jpg")));
+        mars.setMaterial(marsMaterial);
+
+        return mars;
+    }
+
+    private Sphere createJupiter()
+    {
+        Sphere jupiter = new Sphere(200);
+        PhongMaterial jupiterMaterial = new PhongMaterial();
+        jupiterMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/jupiter.jpg")));
+        jupiter.setMaterial(jupiterMaterial);
+
+        return jupiter;
+    }
+
+    private Sphere createSaturn()
+    {
+        Sphere saturn = new Sphere(150);
+        PhongMaterial saturnMaterial = new PhongMaterial();
+        saturnMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/saturn.png")));
+        saturn.setMaterial(saturnMaterial);
+
+        return saturn;
+    }
+
+    private Sphere createUranus()
+    {
+        Sphere uranus = new Sphere(100);
+        PhongMaterial uranusMaterial = new PhongMaterial();
+        uranusMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/uranus.jpg")));
+        uranus.setMaterial(uranusMaterial);
+
+        return uranus;
+    }
+
+    private Sphere createNeptune()
+    {
+        Sphere neptune = new Sphere(100);
+        PhongMaterial neptuneMaterial = new PhongMaterial();
+        neptuneMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("/resources/neptune.jpg")));
+        neptune.setMaterial(neptuneMaterial);
+
+        return neptune;
+    }
+
+
     private void initMouseControl(StackPane root, Scene scene, Stage stage)
     {
         Rotate xRotate;
         Rotate yRotate;
-
 
         root.getTransforms().addAll(
                 xRotate = new Rotate(0, Rotate.X_AXIS),
                 yRotate = new Rotate(0, Rotate.Y_AXIS)
         );
 
-
         xRotate.angleProperty().bind(angleX);
         yRotate.angleProperty().bind(angleY);
-
-
-
 
         // track mouse movement
         scene.setOnMousePressed(mouseEvent ->
@@ -399,19 +383,13 @@ public class Main extends Application
             angleY.set(anchorAngelY + anchorX - mouseEvent.getSceneX());
         });
 
-
-
-
         stage.addEventHandler(ScrollEvent.SCROLL, scrollEvent ->
         {
             double delta = scrollEvent.getDeltaY();
 
             root.translateZProperty().set(root.getTranslateZ() + delta);
         });
-
-
     }
-
 
 }
 
