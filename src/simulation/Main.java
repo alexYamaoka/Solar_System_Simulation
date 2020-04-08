@@ -64,7 +64,7 @@ public class Main extends Application
         Circle mercuryPath = new Circle();
         mercuryPath.setRadius(sun.getBoundsInLocal().getWidth() + 100);
         PathTransition transitionMercury = new PathTransition();
-        setTransitionPath(transitionMercury, mercury, mercuryPath, 5);
+        setTransitionPath(transitionMercury, mercury, mercuryPath, 7);
 
 
         //********** venus ************
@@ -72,7 +72,7 @@ public class Main extends Application
         Circle venusPath = new Circle();
         venusPath.setRadius(sun.getBoundsInLocal().getWidth() + 800);
         PathTransition transitionVenus = new PathTransition();
-        setTransitionPath(transitionVenus, venus, venusPath, 6);
+        setTransitionPath(transitionVenus, venus, venusPath, 8);
 
 
         //********** earth and moon ************
@@ -80,7 +80,7 @@ public class Main extends Application
         Circle earthPath = new Circle();
         earthPath.setRadius(sun.getBoundsInLocal().getWidth() + 3000);
         PathTransition transitionEarth = new PathTransition();
-        setTransitionPath(transitionEarth, earth, earthPath, 9);
+        setTransitionPath(transitionEarth, earth, earthPath, 11);
 
 
         Sphere moon = createMoon();
@@ -95,7 +95,7 @@ public class Main extends Application
         Circle marsPath = new Circle();
         marsPath.setRadius(sun.getBoundsInLocal().getWidth() + 5000);
         PathTransition transitionMars = new PathTransition();
-        setTransitionPath(transitionMars, mars, marsPath, 11);
+        setTransitionPath(transitionMars, mars, marsPath, 13);
 
 
         //********** jupiter ************
@@ -103,7 +103,7 @@ public class Main extends Application
         Circle jupiterPath = new Circle();
         jupiterPath.setRadius(sun.getBoundsInLocal().getWidth() + 8000);
         PathTransition transitionJupiter = new PathTransition();
-        setTransitionPath(transitionJupiter, jupiter, jupiterPath, 12);
+        setTransitionPath(transitionJupiter, jupiter, jupiterPath, 14);
 
 
         //********** saturn ************
